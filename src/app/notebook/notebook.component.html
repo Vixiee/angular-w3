@@ -1,17 +1,30 @@
 <div class="container">
   <form
-    [class.error]="error"
+    [class.error]=""
     (submit)="
       addOrUpdateNote(title.value, content.value);
       title.value = '';
       content.value = ''
     "
   >
-    <input type="text" #title placeholder="Заглавие" required minlength="5" />
-    <input #content placeholder="Съдържание" required minlength="7" />
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <input
+      [ngClass]="{ invalid: isInvalid }"
+      type="text"
+      #title
+      placeholder="Заглавие"
+      required
+      minlength="5"
+    />
+    <input
+      [ngClass]="{ invalid: isInvalid }"
+      #content
+      placeholder="Съдържание"
+      required
+      minlength="7"
+    />
     <button type="submit">Съхрани</button>
   </form>
-  <div *ngIf="error" class="error-message">{{ error }}</div>
   <div class="notes">
     <div *ngFor="let note of notes; index as i">
       <div class="note">

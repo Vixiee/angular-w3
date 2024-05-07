@@ -18,11 +18,14 @@ export class NotebookTaskComponent {
   notes: { title: string; content: string }[] = [];
   editingNoteIndex: number | null = null;
   error: string | null = null;
+  isInvalid: boolean = false;
 
   addOrUpdateNote(title: string, content: string) {
     if (title.length < 5 || content.length < 7) {
       this.error =
         'Заглавието трябва да съдържа минимум 5 символа и съдържанието трябва да съдържа минимум 7 символа';
+      this.isInvalid = true;
+
       return;
     }
     let note = { title: title, content: content };
@@ -31,6 +34,7 @@ export class NotebookTaskComponent {
       this.editingNoteIndex = null;
     } else {
       this.notes.push(note);
+      this.isInvalid = false;
     }
     this.error = null;
   }
